@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_navigation"
+    app:startDestination="@id/homeActivity">
+
+    <fragment
+        android:id="@+id/waterConsumptionActivity"
+        android:name="com.lau.csc489g_finalproject.WaterConsumptionActivity"
+        android:label="water_consumption_activity"
+        tools:layout="@layout/water_consumption_activity" />
+    <fragment
+        android:id="@+id/exerciseTrackingActivity"
+        android:name="com.lau.csc489g_finalproject.ExerciseTrackingActivity"
+        android:label="exercise_tracking_activity"
+        tools:layout="@layout/exercise_tracking_activity" />
+    <fragment
+        android:id="@+id/personalInformationActivity"
+        android:name="com.lau.csc489g_finalproject.PersonalInformationActivity"
+        android:label="personal_information_activity"
+        tools:layout="@layout/personal_information_activity" />
+    <fragment
+        android:id="@+id/foodTrackingActivity"
+        android:name="com.lau.csc489g_finalproject.FoodTrackingActivity"
+        android:label="food_tracking_activity"
+        tools:layout="@layout/food_tracking_activity" />
+    <fragment
+        android:id="@+id/BMIActivity"
+        android:name="com.lau.csc489g_finalproject.BMIActivity"
+        android:label="b_m_i_activity"
+        tools:layout="@layout/b_m_i_activity" />
+</navigation>
