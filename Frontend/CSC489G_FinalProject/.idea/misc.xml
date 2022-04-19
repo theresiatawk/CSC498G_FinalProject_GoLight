@@ -4,7 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/xampp/htdocs/CSC498G_FinalProject_GoLight/Frontend/CSC489G_FinalProject/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.18" />
+        <entry key="..\:/xampp/htdocs/CSC498G_FinalProject_GoLight/Frontend/CSC489G_FinalProject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.138" />
+        <entry key="..\:/xampp/htdocs/CSC498G_FinalProject_GoLight/Frontend/CSC489G_FinalProject/app/src/main/res/drawable/ic_round_food_bank_24.xml" value="0.138" />
         <entry key="..\:/xampp/htdocs/CSC498G_FinalProject_GoLight/Frontend/CSC489G_FinalProject/app/src/main/res/drawable/rounded_core.xml" value="0.103" />
+        <entry key="..\:/xampp/htdocs/CSC498G_FinalProject_GoLight/Frontend/CSC489G_FinalProject/app/src/main/res/drawable/rounded_corner.xml" value="0.138" />
+        <entry key="..\:/xampp/htdocs/CSC498G_FinalProject_GoLight/Frontend/CSC489G_FinalProject/app/src/main/res/drawable/semi_rounded.xml" value="0.138" />
         <entry key="..\:/xampp/htdocs/CSC498G_FinalProject_GoLight/Frontend/CSC489G_FinalProject/app/src/main/res/font/alice.xml" value="0.1" />
         <entry key="..\:/xampp/htdocs/CSC498G_FinalProject_GoLight/Frontend/CSC489G_FinalProject/app/src/main/res/font/alicee.xml" value="0.1" />
         <entry key="..\:/xampp/htdocs/CSC498G_FinalProject_GoLight/Frontend/CSC489G_FinalProject/app/src/main/res/font/rokkitt.xml" value="0.1" />
@@ -13,6 +17,7 @@
         <entry key="..\:/xampp/htdocs/CSC498G_FinalProject_GoLight/Frontend/CSC489G_FinalProject/app/src/main/res/layout/activity_main.xml" value="0.14666666666666667" />
         <entry key="..\:/xampp/htdocs/CSC498G_FinalProject_GoLight/Frontend/CSC489G_FinalProject/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/xampp/htdocs/CSC498G_FinalProject_GoLight/Frontend/CSC489G_FinalProject/app/src/main/res/layout/b_m_i_activity.xml" value="0.17135416666666667" />
+        <entry key="..\:/xampp/htdocs/CSC498G_FinalProject_GoLight/Frontend/CSC489G_FinalProject/app/src/main/res/layout/water_consumption_activity.xml" value="0.10552536231884058" />
         <entry key="..\:/xampp/htdocs/CSC498G_FinalProject_GoLight/Frontend/CSC489G_FinalProject/app/src/main/res/menu/bottom_menu.xml" value="0.17135416666666667" />
       </map>
     </option>
