@@ -2,7 +2,9 @@ package com.lau.csc489g_finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -13,5 +15,14 @@ public class LoginActivity extends AppCompatActivity {
 
         // Hiding the Action Bar from the layout
         getSupportActionBar().hide();
+    }
+    // OnClick on sign up go to register page
+    public void goToRegister(View v){
+        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+        startActivity(intent);
+    }
+    public void goToHome(View v){
+        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+        startActivity(intent);
     }
 }
