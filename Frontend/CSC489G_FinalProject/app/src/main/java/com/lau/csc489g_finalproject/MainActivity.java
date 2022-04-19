@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }, 2000);
-
-
+    }
+    public void register(View v){
+        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+        startActivity(intent);
     }
 }
