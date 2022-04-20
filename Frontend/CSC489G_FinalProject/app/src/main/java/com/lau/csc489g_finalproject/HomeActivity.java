@@ -17,7 +17,22 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().hide();
     }
     public void goToWaterTracking(View v){
-        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        Intent intent = new Intent(getApplicationContext(), WaterTrackingActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToFoodTracking(View v){
+        Intent intent = new Intent(getApplicationContext(), FoodTrackingActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToExerciseTracking(View v){
+        Intent intent = new Intent(getApplicationContext(), ExerciseTrackingActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToProfile(View v){
+        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(intent);
     }
 }
