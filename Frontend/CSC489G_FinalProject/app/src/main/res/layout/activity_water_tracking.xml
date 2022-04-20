@@ -8,6 +8,155 @@
     tools:context=".WaterTrackingActivity">
 
     <ImageView
+        android:id="@+id/imageView29"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.654"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.272"
+        app:srcCompat="@drawable/water_filled_icon" />
+
+    <ImageView
+        android:id="@+id/imageView30"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.891"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.272"
+        app:srcCompat="@drawable/water_filled_icon" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="212dp"
+        android:layout_height="58dp"
+        android:fontFamily="@font/rokkitt_bold"
+        android:gravity="center"
+        android:text="Today"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#453F5F"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.096" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="194dp"
+        android:layout_height="40dp"
+        android:fontFamily="@font/fontt"
+        android:gravity="center"
+        android:text="500ML Cup"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#453F5F"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.364"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.683" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="269dp"
+        android:layout_height="38dp"
+        android:fontFamily="@font/fontt"
+        android:gravity="center"
+        android:text="Daily Goal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#453F5F"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.861" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="92dp"
+        android:layout_height="84dp"
+        android:fontFamily="@font/fontt"
+        android:gravity="center"
+        android:text="Cups"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#453F5F"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.627" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="92dp"
+        android:layout_height="84dp"
+        android:fontFamily="@font/fontt"
+        android:gravity="center"
+        android:text="ML"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#453F5F"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.714"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.836" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="131dp"
+        android:layout_height="66dp"
+        android:fontFamily="@font/rokkitt_bold"
+        android:gravity="center"
+        android:text="3/8 "
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#453F5F"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.139"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.61" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="131dp"
+        android:layout_height="66dp"
+        android:fontFamily="@font/rokkitt_bold"
+        android:gravity="center"
+        android:text="2000"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#453F5F"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.346"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.813" />
+
+    <ImageView
         android:id="@+id/imageView26"
         android:layout_width="44dp"
         android:layout_height="41dp"
@@ -50,7 +199,6 @@
         android:id="@+id/imageView8"
         android:layout_width="42dp"
         android:layout_height="37dp"
-        android:onClick="goToWaterTracking"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.281"
@@ -63,6 +211,7 @@
         android:id="@+id/imageView7"
         android:layout_width="55dp"
         android:layout_height="43dp"
+        android:onClick="goToHome"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.044"
@@ -70,4 +219,90 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.977"
         app:srcCompat="@drawable/home_icon" />
+
+    <ImageView
+        android:id="@+id/imageView27"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.272"
+        app:srcCompat="@drawable/water_filled_icon" />
+
+    <ImageView
+        android:id="@+id/imageView28"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.391"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.272"
+        app:srcCompat="@drawable/water_filled_icon" />
+
+    <ImageView
+        android:id="@+id/imageView31"
+        android:layout_width="62dp"
+        android:layout_height="86dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.146"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.415"
+        app:srcCompat="@drawable/water_icon" />
+
+    <ImageView
+        android:id="@+id/imageView32"
+        android:layout_width="62dp"
+        android:layout_height="86dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.383"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.415"
+        app:srcCompat="@drawable/water_icon" />
+
+    <ImageView
+        android:id="@+id/imageView33"
+        android:layout_width="62dp"
+        android:layout_height="86dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.641"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.415"
+        app:srcCompat="@drawable/water_icon" />
+
+    <ImageView
+        android:id="@+id/imageView34"
+        android:layout_width="62dp"
+        android:layout_height="86dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.893"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.415"
+        app:srcCompat="@drawable/water_icon" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="75dp"
+        android:layout_height="56dp"
+        android:background="@drawable/rounded_corner"
+        android:text="+"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.601" />
 </androidx.constraintlayout.widget.ConstraintLayout>
