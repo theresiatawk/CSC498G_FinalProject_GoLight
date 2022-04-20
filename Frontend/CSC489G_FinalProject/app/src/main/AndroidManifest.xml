@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CSC489G_FinalProject">
         <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ExerciseTrackingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FoodTrackingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WaterTrackingActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity

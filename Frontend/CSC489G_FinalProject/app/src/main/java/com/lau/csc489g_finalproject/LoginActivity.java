@@ -21,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
         startActivity(intent);
     }
+    // OnClick on login go to Home page
     public void goToHome(View v){
         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
         startActivity(intent);
