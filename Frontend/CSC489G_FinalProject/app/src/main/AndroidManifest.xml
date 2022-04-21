@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CSC489G_FinalProject">
         <activity
+            android:name=".WhatExerciseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WhatFoodActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProfileActivity"
             android:exported="false" />
         <activity
