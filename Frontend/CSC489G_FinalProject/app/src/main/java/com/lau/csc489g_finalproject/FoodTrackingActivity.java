@@ -36,4 +36,12 @@ public class FoodTrackingActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(intent);
     }
+
+    public void goToEdit(View v){
+        // Getting the tag of the view clicked
+        String destination = v.getTag().toString();
+        Intent intent = new Intent(getApplicationContext(), WhatFoodActivity.class);
+        intent.putExtra(destination, destination);
+        startActivity(intent);
+    }
 }
