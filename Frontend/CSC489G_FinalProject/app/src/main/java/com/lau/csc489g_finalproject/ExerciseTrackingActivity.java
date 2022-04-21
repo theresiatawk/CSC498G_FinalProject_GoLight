@@ -40,7 +40,7 @@ public class ExerciseTrackingActivity extends AppCompatActivity {
         // Getting the tag of the view clicked
         String destination = v.getTag().toString();
         Intent intent = new Intent(getApplicationContext(), WhatExerciseActivity.class);
-        intent.putExtra(destination, destination);
+        intent.putExtra("destination", destination);
         startActivity(intent);
     }
 }
