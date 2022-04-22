@@ -127,6 +127,5 @@ public class LoginActivity extends AppCompatActivity {
         String url = "http://192.168.106.1/CSC498G_FinalProject_GoLight/Backend/login.php";
         DownloadTask task = new DownloadTask();
         task.execute(entered_email, entered_password,url);
-        String result = task.doInBackground(entered_email, entered_password,url);
     }
 }
