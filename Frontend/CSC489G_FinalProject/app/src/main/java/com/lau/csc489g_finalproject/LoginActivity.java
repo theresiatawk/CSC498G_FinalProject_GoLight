@@ -77,8 +77,9 @@ public class LoginActivity extends AppCompatActivity {
                 if(result.equals("Logged in!")){
                     Toast.makeText(getApplicationContext(),"Welcome"+first_param, Toast.LENGTH_LONG).show();
                     text.setText(result);
-                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(intent);
+                    Intent intentt = new Intent(getApplicationContext(), HomeActivity.class);
+                    text.setText("ok");
+                    startActivity(intentt);
                 }
                 else{
                     text.setText(result);
@@ -126,5 +127,6 @@ public class LoginActivity extends AppCompatActivity {
         String url = "http://192.168.106.1/CSC498G_FinalProject_GoLight/Backend/login.php";
         DownloadTask task = new DownloadTask();
         task.execute(entered_email, entered_password,url);
+        String result = task.doInBackground(entered_email, entered_password,url);
     }
 }

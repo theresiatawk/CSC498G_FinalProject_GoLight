@@ -30,6 +30,11 @@ $password = validate($_POST['password']);
 
             if ($row['email'] === $email && $row['password'] === $password) {
                 echo "Logged in!";
+                $_SESSION['first_name'] = $row['first_name'];
+                $_SESSION['last_name'] = $row['last_name'];
+                $_SESSION['user_id'] = $row['user_id'];
+                echo $_SESSION['first_name'];
+                exit();
             }   
             else{
                 echo("Incorect User name or password");
