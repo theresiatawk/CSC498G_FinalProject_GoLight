@@ -27,13 +27,14 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class HomeActivity extends AppCompatActivity {
 
-    double weight_value, height_value, bmi;
-    String user_id;
+    double weight_value, height_value, bmi_value;
+    String user_id, bmi;
     String [] weight, height;
     TextView bmi_analysis, bmi_result;
     SharedPreferences shared;
@@ -110,11 +111,23 @@ public class HomeActivity extends AppCompatActivity {
 
                     weight_value = Double.parseDouble(weight[0]);
                     height_value = Double.parseDouble(height[0]);
-                    bmi = weight_value/((height_value/100)*(height_value/100));
+                    DecimalFormat df = new DecimalFormat("#.###");
+                    bmi = df.format(weight_value/((height_value/100)*(height_value/100)));
                     bmi_result.setText("Your BMI is "+ bmi);
+                    bmi_value = Double.parseDouble(bmi);
 
-
-
+                    if (bmi_value < 18){
+                        bmi_analysis.setText("You are Under Weight");
+                    }
+                    else if(bmi_value <= 25){
+                        bmi_analysis.setText("Your are Normal");
+                    }
+                    else if(bmi_value <= 28){
+                        bmi_analysis.setText("You are Over Weight");
+                    }
+                    else{
+                        bmi_analysis.setText("You are Malnourished");
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

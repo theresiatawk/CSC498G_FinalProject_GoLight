@@ -9,7 +9,7 @@ function validate($data){
 }
 if (isset($_POST['user_id']) && isset($_POST['date'])) {
     $user = validate($_POST['user_id']);
-    $date = validate($_PST['date']);
+    $date = validate($_POST['date']);
 
     if (empty($user)) {
         exit();
@@ -31,6 +31,6 @@ if (isset($_POST['user_id']) && isset($_POST['date'])) {
             echo "0";
         }
     }
-    
+}  
 
 ?>
