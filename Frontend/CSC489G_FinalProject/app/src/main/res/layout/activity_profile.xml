@@ -8,7 +8,7 @@
     tools:context=".ProfileActivity">
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/username"
         android:layout_width="261dp"
         android:layout_height="60dp"
         android:fontFamily="@font/fontt"

@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     Button login_button;
     TextView text;
     String user_id;
-    SharedPreferences shared = getApplicationContext().getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
+    SharedPreferences shared;
 
 
     // Implementing the post request using this class
@@ -97,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                 try{
                     JSONArray array = new JSONArray(result);
                     user_id = (String) array.get(0);
+                    shared = getApplicationContext().getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
                     shared.edit().putString("id",user_id).commit();
 
                 } catch (Exception e) {
