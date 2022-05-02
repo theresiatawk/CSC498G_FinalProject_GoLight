@@ -18,6 +18,14 @@ if (isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['e
     $height = validate($_POST['height']);
     $weight = validate($_POST['weight']);
 
+
+    date_default_timezone_set('Asia/Beirut');
+    $year = intval(date('Y'));
+    $month = intval(date('m'));
+    $day = intval(date('d'));
+
+    $date = strval($day.$month.$year);
+
     if (empty($first_name) || empty($last_name) || empty($email) || empty($password) || empty($gender) || empty($date_of_birth) || empty($height) || empty($weight)) {
         echo("Some field are required");
         exit();
@@ -32,26 +40,9 @@ if (isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['e
             exit();
         }
         else{
-            $query = $mysqli->prepare("INSERT INTO users(first_name, last_name, email, password, gender, date_of_birth) VALUES (?, ?, ?, ?, ?, ?);");
-            $query->bind_param("ssssss", $first_name, $last_name, $email, $password, $gender, $date_of_birth);
+            $query = $mysqli->prepare("INSERT INTO users(first_name, last_name, email, password, gender, date_of_birth, weight, height, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            $query->bind_param("ssssssiis", $first_name, $last_name, $email, $password, $gender, $date_of_birth, $weight, $height, $date);
             $query->execute();
-
-            $sql2 = "SELECT user_id FROM users WHERE email ='$email'";
-            $result2 = mysqli_query($mysqli, $sql2);
-            $row = mysqli_fetch_assoc($result2);
-            $id = $row['user_id'];
-
-            date_default_timezone_set('Asia/Beirut');
-
-            $year = intval(date('Y'));
-            $month = intval(date('m'));
-            $day = intval(date('d'));
-
-            $date = strval($day.$month.$year);
-
-            $query1 = $mysqli->prepare("INSERT INTO body(user_id, weight, height, date) VALUES (?, ?, ?, ?);");
-            $query1->bind_param("iiis", $id, $weight, $height, $date);
-            $query1->execute();
             echo "Account Created!";
 
         }

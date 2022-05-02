@@ -2,7 +2,9 @@ package com.lau.csc489g_finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +33,9 @@ public class LoginActivity extends AppCompatActivity {
     EditText edit_text_email, edit_text_password;
     Button login_button;
     TextView text;
+    String user_id;
+    SharedPreferences shared = getApplicationContext().getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
+
 
     // Implementing the post request using this class
     public class DownloadTask extends AsyncTask<String, Void, String> {
@@ -91,6 +96,9 @@ public class LoginActivity extends AppCompatActivity {
             else{
                 try{
                     JSONArray array = new JSONArray(result);
+                    user_id = (String) array.get(0);
+                    shared.edit().putString("id",user_id).commit();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
