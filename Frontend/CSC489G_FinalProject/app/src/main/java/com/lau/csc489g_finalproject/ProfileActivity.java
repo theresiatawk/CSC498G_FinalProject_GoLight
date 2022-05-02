@@ -25,14 +25,16 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ProfileActivity extends AppCompatActivity {
 
     SharedPreferences shared;
-    String user_id;
+    String user_id, updated_birth_date, updated_email, updated_gender, updated_weight, updated_height;
     String [] first_name, last_name, email, gender, weight, height, date_of_birth;
-    TextView username;
+    TextView username, result_text;
     EditText birth_date_text, mail_text, gender_text,weight_text, height_text;
     // Implementing the post request using this class
     public class DownloadTask extends AsyncTask<String, Void, String> {
@@ -84,8 +86,8 @@ public class ProfileActivity extends AppCompatActivity {
         protected void onPostExecute(String result){
             super.onPostExecute(result);
             //If result incorrect print a toast
-            if(result.equals("Incorrect Username or password")){
-                username.setText(result);
+            if(result.equals("Invalid user")){
+                result_text.setText(result);
                 Toast.makeText(getApplicationContext(),"Invalid Credentials", Toast.LENGTH_LONG).show();
             }
             // If result correct convert the received json object to string
@@ -129,6 +131,70 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
     }
+    public class DownloadTask2 extends AsyncTask<String, Void, String> {
+
+        protected String doInBackground(String... params) {
+            String user_id_param = params[0];
+            String date_of_birth_param= params[1];
+            String email_param= params[2];
+            String gender_param= params[3];
+            String height_param= params[4];
+            String weight_param= params[5];
+
+            URL url;
+            HttpURLConnection http;
+
+            try{
+                url = new URL(params[6]);
+
+                // Opening a connection between android app and the url
+                http = (HttpURLConnection) url.openConnection();
+
+                http.setRequestMethod("POST");
+                http.setDoInput(true);
+                http.setDoOutput(true);
+
+                // I need an Output Stream to sent params to the API
+                OutputStream out_stream = http.getOutputStream();
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out_stream, "UTF-8"));
+
+                String post1 = URLEncoder.encode("user_id", "UTF-8")+"="+ URLEncoder.encode(user_id_param, "UTF-8")+"&"+URLEncoder.encode("date_of_birth", "UTF-8")+"="+ URLEncoder.encode(date_of_birth_param, "UTF-8")+"&"+URLEncoder.encode("email", "UTF-8")+"="+ URLEncoder.encode(email_param, "UTF-8")+"&"+URLEncoder.encode("gender", "UTF-8")+"="+ URLEncoder.encode(gender_param, "UTF-8")+"&"+URLEncoder.encode("weight", "UTF-8")+"="+ URLEncoder.encode(weight_param, "UTF-8")+"&"+URLEncoder.encode("height", "UTF-8")+"="+ URLEncoder.encode(height_param, "UTF-8");
+                bw.write(post1);
+                bw.flush();
+                bw.close();
+                out_stream.close();
+
+                // Reading the result from the API
+                InputStream in_stream = http.getInputStream();
+                BufferedReader br = new BufferedReader(new InputStreamReader(in_stream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+                while((line = br.readLine())!= null){
+                    result += line;
+                }
+                br.close();
+                in_stream.close();
+                http.disconnect();
+                return result;
+            }
+            catch(Exception e){
+                e.printStackTrace();
+                return null;
+            }
+        }
+        protected void onPostExecute(String result){
+            super.onPostExecute(result);
+            //If result incorrect print a toast
+            if(result.equals("This email already exist")){
+                result_text.setText(result);
+                Toast.makeText(getApplicationContext(),"This email already exist", Toast.LENGTH_LONG).show();
+            }
+            // If result correct convert the received json object to string
+            else{
+                result_text.setText(result);
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +204,7 @@ public class ProfileActivity extends AppCompatActivity {
         // Hiding the Action Bar from the layout
         getSupportActionBar().hide();
         username = (TextView) findViewById(R.id.username);
+        result_text = (TextView) findViewById(R.id.result);
         birth_date_text = (EditText) findViewById(R.id.date_of_birth);
         mail_text = (EditText) findViewById(R.id.user_email);
         gender_text = (EditText) findViewById(R.id.user_gender);
@@ -171,6 +238,44 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void editInfo(View v){
-        
+        updated_birth_date = birth_date_text.getText().toString();
+        updated_email = mail_text.getText().toString();
+        updated_gender = gender_text.getText().toString();
+        updated_weight = weight_text.getText().toString();
+        updated_height = height_text.getText().toString();
+
+        if(!(updated_email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+") || !(updated_email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+\\.+[a-z]") || updated_email.length() == 0))){
+            result_text.setText("Invalid email format!");
+        }
+        else if(!isValidDate(updated_birth_date) || updated_birth_date.length() == 0){
+            result_text.setText("Make sure the birth date format is of the form dd/MM/yyyy");
+        }
+        else if(!updated_gender.equalsIgnoreCase("male") && !updated_gender.equalsIgnoreCase("female") && !updated_gender.equalsIgnoreCase("none")){
+            result_text.setText("Invalid gender format! Please enter female, male or none");
+        }
+        else if(!updated_weight.matches( "[0-9]*" ) || updated_weight.length() == 0){
+            result_text.setText("Invalid weight format!");
+        }
+        else if(!updated_height.matches( "[0-9]*" ) || updated_height.length() == 0){
+            result_text.setText("Invalid height format!");
+        }
+        else {
+            shared = getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
+            user_id = shared.getString("id", "");
+
+            String url = "http://192.168.106.1/CSC498G_FinalProject_GoLight/Backend/updateProfile.php";
+            ProfileActivity.DownloadTask2 task = new ProfileActivity.DownloadTask2();
+            task.execute(user_id, updated_birth_date, updated_email, updated_gender, updated_weight, updated_height, url);
+        }
+    }
+    public static boolean isValidDate(String str){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setLenient(false);
+        try {
+            Date d1 = sdf.parse(str);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

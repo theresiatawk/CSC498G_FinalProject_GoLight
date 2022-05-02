@@ -7,6 +7,23 @@
     android:background="@drawable/profile_background"
     tools:context=".ProfileActivity">
 
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="402dp"
+        android:layout_height="47dp"
+        android:fontFamily="@font/fontt"
+        android:textColor="#E30E0E"
+        android:textColorHighlight="#DC1919"
+        android:textColorLink="#E10D0D"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.238" />
+
     <EditText
         android:id="@+id/user_gender"
         android:layout_width="286dp"
@@ -48,10 +65,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.293" />
+        app:layout_constraintVertical_bias="0.324" />
 
     <TextView
         android:id="@+id/textView21"
@@ -227,10 +244,10 @@
         android:layout_height="133dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.066"
+        app:layout_constraintVertical_bias="0.05"
         app:srcCompat="@drawable/user" />
 
     <Button
@@ -238,6 +255,7 @@
         android:layout_width="293dp"
         android:layout_height="37dp"
         android:background="@drawable/semi_rounded"
+        android:onClick="editInfo"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

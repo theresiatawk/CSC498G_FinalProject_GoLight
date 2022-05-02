@@ -5,17 +5,107 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class HomeActivity extends AppCompatActivity {
 
+    String [] weight, height;
     DatePickerDialog date_picker_dialog;
     Button date_button;
+    public class DownloadTask extends AsyncTask<String, Void, String> {
+
+        protected String doInBackground(String... params) {
+            String first_param = params[0];
+
+            URL url;
+            HttpURLConnection http;
+
+            try{
+                url = new URL(params[1]);
+
+                // Opening a connection between android app and the url
+                http = (HttpURLConnection) url.openConnection();
+
+                http.setRequestMethod("POST");
+                http.setDoInput(true);
+                http.setDoOutput(true);
+
+                // I need an Output Stream to sent params to the API
+                OutputStream out_stream = http.getOutputStream();
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out_stream, "UTF-8"));
+
+                String post1 = URLEncoder.encode("user_id", "UTF-8")+"="+ URLEncoder.encode(first_param, "UTF-8");
+                bw.write(post1);
+                bw.flush();
+                bw.close();
+                out_stream.close();
+
+                // Reading the result from the API
+                InputStream in_stream = http.getInputStream();
+                BufferedReader br = new BufferedReader(new InputStreamReader(in_stream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+                while((line = br.readLine())!= null){
+                    result += line;
+                }
+                br.close();
+                in_stream.close();
+                http.disconnect();
+                return result;
+            }
+            catch(Exception e){
+                e.printStackTrace();
+                return null;
+            }
+        }
+        protected void onPostExecute(String result){
+            super.onPostExecute(result);
+            //If result incorrect print a toast
+            if(result.equals("Invalid user")){
+                Toast.makeText(getApplicationContext(),"Invalid Credentials", Toast.LENGTH_LONG).show();
+            }
+            // If result correct convert the received json object to string
+            else{
+                try{
+                    JSONArray array = new JSONArray(result);
+                    ArrayList<Object> list = new ArrayList<>();
+                    JSONObject obj;
+
+                    for (int i = 0; i < array.length(); i ++){
+                        list.add(array.get(i));
+                    }
+                    weight = new String[array.length()];
+                    height = new String[array.length()];
+
+                    obj = (JSONObject) array.get(0);
+                    weight[0] = obj.getString("weight");
+                    height[0] = obj.getString("height");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +113,8 @@ public class HomeActivity extends AppCompatActivity {
 
         // Hiding the Action Bar from the layout
         getSupportActionBar().hide();
+
+        
 
         initDatePicker();
         date_button = findViewById(R.id.datePickerButton);

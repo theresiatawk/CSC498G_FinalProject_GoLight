@@ -141,7 +141,7 @@ public class RegisterActivity extends AppCompatActivity {
         else if(!entered_last_name.matches( "[a-zA-z]+([ '-][a-zA-Z]+)*" ) || entered_last_name.length() == 0){
             text.setText("Invalid last name format!");
         }
-        else if(!(entered_email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+") || entered_email.length() == 0)){
+        else if(!(entered_email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+") || !(entered_email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+\\.+[a-z]") || entered_email.length() == 0))){
             text.setText("Invalid email format!");
         }
         else if(entered_password.length()<8 || !isValidPassword(entered_password)){
