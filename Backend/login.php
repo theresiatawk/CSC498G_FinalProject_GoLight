@@ -11,7 +11,8 @@ function validate($data){
 if (isset($_POST['email']) && isset($_POST['password'])) {
 
 $email = validate($_POST['email']);
-$password = validate($_POST['password']);
+$password = mysqli_real_escape_string($mysqli, stripslashes(htmlspecialchars($_POST['password'])));
+
 
     if (empty($email)) {
     echo("User Name is required");
@@ -22,13 +23,17 @@ $password = validate($_POST['password']);
         exit();
     }
     else{
-        $sql = "SELECT * FROM users WHERE email ='$email' AND password ='$password'";
+    
+        $sql = "SELECT * FROM users WHERE email = '" . $email . "'";
         $result = mysqli_query($mysqli, $sql);
 
         if (mysqli_num_rows($result) != 0) {
             $row = mysqli_fetch_assoc($result);
 
-            if ($row['email'] === $email && $row['password'] === $password) {
+            $dbemail = $row['email'];
+            $dbpassword = $row['password'];
+
+            if ($dbemail == $email && password_verify($password, $dbpassword)) {
                 echo "Logged in!";
                 $_SESSION['first_name'] = $row['first_name'];
                 $_SESSION['last_name'] = $row['last_name'];
@@ -42,7 +47,7 @@ $password = validate($_POST['password']);
             }
         }
         else{
-            echo("Incorect User name or password");
+            echo("Incorect User name or password!!");
             exit();
         }
     }

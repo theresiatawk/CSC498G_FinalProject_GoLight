@@ -75,11 +75,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 //If result correct go to home page else print a toast
                 if(result.equals("Logged in!")){
-                    Toast.makeText(getApplicationContext(),"Welcome"+first_param, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Welcome", Toast.LENGTH_LONG).show();
                     text.setText(result);
-                    Intent intentt = new Intent(getApplicationContext(), HomeActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
                     text.setText("ok");
-                    startActivity(intentt);
                 }
                 else{
                     text.setText(result);

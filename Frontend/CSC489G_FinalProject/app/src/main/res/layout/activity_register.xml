@@ -79,7 +79,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.442" />
+        app:layout_constraintVertical_bias="0.442"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/gender"
@@ -172,8 +173,8 @@
 
     <TextView
         android:id="@+id/text_signup"
-        android:layout_width="241dp"
-        android:layout_height="76dp"
+        android:layout_width="367dp"
+        android:layout_height="123dp"
         android:fontFamily="@font/fontt"
         android:textColor="#E30E0E"
         android:textColorHighlight="#DC1919"
@@ -182,10 +183,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.195"
+        app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.146" />
+        app:layout_constraintVertical_bias="0.123" />
 
     <TextView
         android:id="@+id/textView2"

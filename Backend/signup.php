@@ -52,7 +52,7 @@ if (isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['e
             $query1 = $mysqli->prepare("INSERT INTO body(user_id, weight, height, date) VALUES (?, ?, ?, ?);");
             $query1->bind_param("iiis", $id, $weight, $height, $date);
             $query1->execute();
-            echo "Mabrouk!";
+            echo "Account Created!";
 
         }
     }
