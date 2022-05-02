@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -72,19 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                 br.close();
                 in_stream.close();
                 http.disconnect();
-
-                //If result correct go to home page else print a toast
-                if(result.equals("Logged in!")){
-                    Toast.makeText(getApplicationContext(),"Welcome", Toast.LENGTH_LONG).show();
-                    text.setText(result);
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    text.setText("ok");
-                }
-                else{
-                    text.setText(result);
-                    Toast.makeText(getApplicationContext(),"Incorrect Username or Password", Toast.LENGTH_LONG).show();
-                }
                 return result;
             }
             catch(Exception e){
@@ -92,8 +80,25 @@ public class LoginActivity extends AppCompatActivity {
                 return null;
             }
         }
-        protected void onPostExecute(String s){
-            super.onPostExecute(s);
+        protected void onPostExecute(String result){
+            super.onPostExecute(result);
+            //If result incorrect print a toast
+            if(result.equals("Incorrect Username or password")){
+                text.setText(result);
+                Toast.makeText(getApplicationContext(),"Invalid Credentials", Toast.LENGTH_LONG).show();
+            }
+            // If result correct convert the received json object to string
+            else{
+                try{
+                    JSONArray array = new JSONArray(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(getApplicationContext(),"Welcome", Toast.LENGTH_LONG).show();
+                text.setText(result);
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
         }
     }
     @Override
