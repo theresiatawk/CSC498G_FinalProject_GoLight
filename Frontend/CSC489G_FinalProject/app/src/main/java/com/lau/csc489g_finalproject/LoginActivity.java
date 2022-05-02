@@ -27,13 +27,14 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
     EditText edit_text_email, edit_text_password;
     Button login_button;
     TextView text;
-    String user_id;
+    String [] user_id;
     SharedPreferences shared;
 
 
@@ -96,15 +97,21 @@ public class LoginActivity extends AppCompatActivity {
             else{
                 try{
                     JSONArray array = new JSONArray(result);
-                    user_id = (String) array.get(0);
-                    shared = getApplicationContext().getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
-                    shared.edit().putString("id",user_id).commit();
+                    ArrayList<Object> list = new ArrayList<>();
+                    JSONObject obj;
 
+                    for (int i = 0; i < array.length(); i ++){
+                        list.add(array.get(i));
+                    }
+                    user_id = new String[array.length()];
+                    obj = (JSONObject) array.get(0);
+                    user_id[0] = obj.getString("user_id");
+                    shared = getApplicationContext().getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
+                    shared.edit().putString("id",user_id[0]).commit();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 Toast.makeText(getApplicationContext(),"Welcome", Toast.LENGTH_LONG).show();
-                text.setText(result);
                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
