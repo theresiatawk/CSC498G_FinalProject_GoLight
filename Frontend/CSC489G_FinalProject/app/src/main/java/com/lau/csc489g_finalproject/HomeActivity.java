@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -29,7 +32,11 @@ import java.util.Calendar;
 
 public class HomeActivity extends AppCompatActivity {
 
+    double weight_value, height_value, bmi;
+    String user_id;
     String [] weight, height;
+    TextView bmi_analysis, bmi_result;
+    SharedPreferences shared;
     DatePickerDialog date_picker_dialog;
     Button date_button;
     public class DownloadTask extends AsyncTask<String, Void, String> {
@@ -81,7 +88,7 @@ public class HomeActivity extends AppCompatActivity {
         protected void onPostExecute(String result){
             super.onPostExecute(result);
             //If result incorrect print a toast
-            if(result.equals("Invalid user")){
+            if(result.equals("Invalid user.")){
                 Toast.makeText(getApplicationContext(),"Invalid Credentials", Toast.LENGTH_LONG).show();
             }
             // If result correct convert the received json object to string
@@ -100,6 +107,14 @@ public class HomeActivity extends AppCompatActivity {
                     obj = (JSONObject) array.get(0);
                     weight[0] = obj.getString("weight");
                     height[0] = obj.getString("height");
+
+                    weight_value = Double.parseDouble(weight[0]);
+                    height_value = Double.parseDouble(height[0]);
+                    bmi = weight_value/((height_value/100)*(height_value/100));
+                    bmi_result.setText("Your BMI is "+ bmi);
+
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -114,7 +129,14 @@ public class HomeActivity extends AppCompatActivity {
         // Hiding the Action Bar from the layout
         getSupportActionBar().hide();
 
-        
+        bmi_analysis = (TextView) findViewById(R.id.bmi_analysis);
+        bmi_result = (TextView) findViewById(R.id.bmi_result);
+
+        shared = getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
+        user_id = shared.getString("id","");
+        String url = "http://192.168.106.1/CSC498G_FinalProject_GoLight/Backend/getProfile.php";
+        HomeActivity.DownloadTask task = new HomeActivity.DownloadTask();
+        task.execute(user_id,url);
 
         initDatePicker();
         date_button = findViewById(R.id.datePickerButton);
@@ -128,7 +150,6 @@ public class HomeActivity extends AppCompatActivity {
         int day = cal.get(Calendar.DAY_OF_MONTH);
         return makeDateString(day, month, year);
     }
-
     private void initDatePicker()
     {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener()
@@ -151,7 +172,6 @@ public class HomeActivity extends AppCompatActivity {
 
         date_picker_dialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
         //datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
-
     }
 
     private String makeDateString(int day, int month, int year)

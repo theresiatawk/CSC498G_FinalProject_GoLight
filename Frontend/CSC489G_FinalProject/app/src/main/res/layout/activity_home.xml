@@ -36,7 +36,7 @@
         app:layout_constraintVertical_bias="0.144" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/bmi_analysis"
         android:layout_width="321dp"
         android:layout_height="90dp"
         android:fontFamily="@font/fontt"
@@ -54,7 +54,7 @@
         app:layout_constraintVertical_bias="0.687" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/bmi_result"
         android:layout_width="321dp"
         android:layout_height="90dp"
         android:fontFamily="@font/rokkitt_bold"
