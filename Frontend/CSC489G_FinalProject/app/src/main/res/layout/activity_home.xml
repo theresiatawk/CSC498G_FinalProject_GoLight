@@ -19,6 +19,7 @@
         app:srcCompat="@drawable/bmi" />
 
     <TextView
+        android:id="@+id/select_date"
         android:layout_width="212dp"
         android:layout_height="58dp"
         android:fontFamily="@font/rokkitt_bold"
@@ -141,7 +142,7 @@
         android:layout_height="61dp"
         android:gravity="center_horizontal|center_vertical"
         android:onClick="openDatePicker"
-        android:text="JAN 01 2020"
+        android:text="JAN 01 2022"
         android:textColor="#453F6F"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"

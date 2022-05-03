@@ -34,10 +34,11 @@ import java.util.Calendar;
 public class HomeActivity extends AppCompatActivity {
 
     double weight_value, height_value, bmi_value;
-    String user_id, bmi;
+    String picked_date, user_id, bmi;
     String [] weight, height;
-    TextView bmi_analysis, bmi_result;
+    TextView bmi_analysis, bmi_result, select_date;
     SharedPreferences shared;
+
     DatePickerDialog date_picker_dialog;
     Button date_button;
     public class DownloadTask extends AsyncTask<String, Void, String> {
@@ -153,6 +154,9 @@ public class HomeActivity extends AppCompatActivity {
 
         initDatePicker();
         date_button = findViewById(R.id.datePickerButton);
+        select_date = findViewById(R.id.select_date);
+        date_button.setText(getTodaysDate());
+
     }
     private String getTodaysDate()
     {
@@ -170,26 +174,31 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day)
             {
+                // Since january by default is 0
                 month = month + 1;
                 String date = makeDateString(day, month, year);
                 date_button.setText(date);
+                picked_date = day + "" + month + "" + year;
+                shared.edit().putString("chosen_date",picked_date).commit();
+                select_date.setText(picked_date);
             }
         };
 
+        // Getting Today's Date
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
 
         int style = AlertDialog.THEME_HOLO_LIGHT;
-
         date_picker_dialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
-        //datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        // Setting the maximum date to be today's date
+        //date_picker_dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
     }
 
     private String makeDateString(int day, int month, int year)
     {
-        return getMonthFormat(month) + " " + day + " " + year;
+        return day + " " + getMonthFormat(month) + " " + year;
     }
 
     private String getMonthFormat(int month)
@@ -227,6 +236,7 @@ public class HomeActivity extends AppCompatActivity {
     {
         date_picker_dialog.show();
     }
+
     public void goToWaterTracking(View v){
         Intent intent = new Intent(getApplicationContext(), WaterTrackingActivity.class);
         startActivity(intent);
@@ -237,13 +247,8 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goToExerciseTracking(View v){
+    public void goToExerciseTracking(View v) {
         Intent intent = new Intent(getApplicationContext(), ExerciseTrackingActivity.class);
-        startActivity(intent);
-    }
-
-    public void goToProfile(View v){
-        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(intent);
     }
 }

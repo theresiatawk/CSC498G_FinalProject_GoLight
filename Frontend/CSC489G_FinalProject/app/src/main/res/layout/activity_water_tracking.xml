@@ -8,9 +8,10 @@
     tools:context=".WaterTrackingActivity">
 
     <ImageView
-        android:id="@+id/imageView29"
+        android:id="@+id/filled3"
         android:layout_width="69dp"
         android:layout_height="67dp"
+        android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.654"
@@ -20,9 +21,62 @@
         app:srcCompat="@drawable/water_filled_icon" />
 
     <ImageView
-        android:id="@+id/imageView30"
+        android:id="@+id/filled7"
         android:layout_width="69dp"
         android:layout_height="67dp"
+        android:alpha="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.654"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.403"
+        app:srcCompat="@drawable/water_filled_icon" />
+
+    <ImageView
+        android:id="@+id/filled8"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        android:alpha="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.891"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.403"
+        app:srcCompat="@drawable/water_filled_icon" />
+
+    <ImageView
+        android:id="@+id/filled6"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        android:alpha="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.391"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.403"
+        app:srcCompat="@drawable/water_filled_icon" />
+
+    <ImageView
+        android:id="@+id/filled5"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        android:alpha="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.403"
+        app:srcCompat="@drawable/water_filled_icon" />
+
+    <ImageView
+        android:id="@+id/filled4"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.891"
@@ -32,7 +86,7 @@
         app:srcCompat="@drawable/water_filled_icon" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/Today"
         android:layout_width="212dp"
         android:layout_height="58dp"
         android:fontFamily="@font/rokkitt_bold"
@@ -221,9 +275,10 @@
         app:srcCompat="@drawable/home_icon" />
 
     <ImageView
-        android:id="@+id/imageView27"
+        android:id="@+id/filled1"
         android:layout_width="69dp"
         android:layout_height="67dp"
+        android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.149"
@@ -233,9 +288,10 @@
         app:srcCompat="@drawable/water_filled_icon" />
 
     <ImageView
-        android:id="@+id/imageView28"
+        android:id="@+id/filled2"
         android:layout_width="69dp"
         android:layout_height="67dp"
+        android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.391"
@@ -245,7 +301,7 @@
         app:srcCompat="@drawable/water_filled_icon" />
 
     <ImageView
-        android:id="@+id/imageView31"
+        android:id="@+id/empty5"
         android:layout_width="62dp"
         android:layout_height="86dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -257,7 +313,19 @@
         app:srcCompat="@drawable/water_icon" />
 
     <ImageView
-        android:id="@+id/imageView32"
+        android:id="@+id/empty1"
+        android:layout_width="62dp"
+        android:layout_height="86dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.146"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.251"
+        app:srcCompat="@drawable/water_icon" />
+
+    <ImageView
+        android:id="@+id/empty6"
         android:layout_width="62dp"
         android:layout_height="86dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -269,7 +337,43 @@
         app:srcCompat="@drawable/water_icon" />
 
     <ImageView
-        android:id="@+id/imageView33"
+        android:id="@+id/empty2"
+        android:layout_width="62dp"
+        android:layout_height="86dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.383"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.251"
+        app:srcCompat="@drawable/water_icon" />
+
+    <ImageView
+        android:id="@+id/empty3"
+        android:layout_width="62dp"
+        android:layout_height="86dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.641"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.251"
+        app:srcCompat="@drawable/water_icon" />
+
+    <ImageView
+        android:id="@+id/empty4"
+        android:layout_width="62dp"
+        android:layout_height="86dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.873"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.251"
+        app:srcCompat="@drawable/water_icon" />
+
+    <ImageView
+        android:id="@+id/empty7"
         android:layout_width="62dp"
         android:layout_height="86dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -281,7 +385,7 @@
         app:srcCompat="@drawable/water_icon" />
 
     <ImageView
-        android:id="@+id/imageView34"
+        android:id="@+id/empty8"
         android:layout_width="62dp"
         android:layout_height="86dp"
         app:layout_constraintBottom_toBottomOf="parent"

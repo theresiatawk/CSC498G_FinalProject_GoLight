@@ -22,10 +22,12 @@ if (isset($_POST['user_id']) && isset($_POST['date'])) {
         $result = mysqli_query($mysqli, $sql);
 
         if (mysqli_num_rows($result) != 0) {
-            $row = mysqli_fetch_assoc($result);
-
-            $number_of_glasses = $row['nb_of_glasses'];
-            echo  $number_of_glasses;
+            $raw = mysqli_fetch_assoc($result);
+            $response = [];
+            $number_of_glasses = $raw['nb_of_glasses'];
+            $response[] = $raw;
+            $json_respnse = json_encode($response);
+            echo $json_respnse;
         }
         else{
             echo "0";
