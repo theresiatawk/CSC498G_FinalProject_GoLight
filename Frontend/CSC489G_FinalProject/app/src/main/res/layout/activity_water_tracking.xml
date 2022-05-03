@@ -7,91 +7,13 @@
     android:background="@drawable/water_background"
     tools:context=".WaterTrackingActivity">
 
-    <ImageView
-        android:id="@+id/filled3"
-        android:layout_width="69dp"
-        android:layout_height="67dp"
-        android:alpha="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.654"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.272"
-        app:srcCompat="@drawable/water_filled_icon" />
-
-    <ImageView
-        android:id="@+id/filled7"
-        android:layout_width="69dp"
-        android:layout_height="67dp"
-        android:alpha="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.654"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.403"
-        app:srcCompat="@drawable/water_filled_icon" />
-
-    <ImageView
-        android:id="@+id/filled8"
-        android:layout_width="69dp"
-        android:layout_height="67dp"
-        android:alpha="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.891"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.403"
-        app:srcCompat="@drawable/water_filled_icon" />
-
-    <ImageView
-        android:id="@+id/filled6"
-        android:layout_width="69dp"
-        android:layout_height="67dp"
-        android:alpha="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.391"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.403"
-        app:srcCompat="@drawable/water_filled_icon" />
-
-    <ImageView
-        android:id="@+id/filled5"
-        android:layout_width="69dp"
-        android:layout_height="67dp"
-        android:alpha="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.403"
-        app:srcCompat="@drawable/water_filled_icon" />
-
-    <ImageView
-        android:id="@+id/filled4"
-        android:layout_width="69dp"
-        android:layout_height="67dp"
-        android:alpha="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.891"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.272"
-        app:srcCompat="@drawable/water_filled_icon" />
-
     <TextView
         android:id="@+id/Today"
         android:layout_width="212dp"
         android:layout_height="58dp"
         android:fontFamily="@font/rokkitt_bold"
         android:gravity="center"
-        android:text="Today"
+        android:text="Water"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#453F5F"
         android:textSize="48sp"
@@ -175,12 +97,12 @@
         app:layout_constraintVertical_bias="0.836" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/cups_nb"
         android:layout_width="131dp"
         android:layout_height="66dp"
         android:fontFamily="@font/rokkitt_bold"
         android:gravity="center"
-        android:text="3/8 "
+        android:text="0/8 "
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#453F5F"
         android:textSize="48sp"
@@ -273,32 +195,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.977"
         app:srcCompat="@drawable/home_icon" />
-
-    <ImageView
-        android:id="@+id/filled1"
-        android:layout_width="69dp"
-        android:layout_height="67dp"
-        android:alpha="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.272"
-        app:srcCompat="@drawable/water_filled_icon" />
-
-    <ImageView
-        android:id="@+id/filled2"
-        android:layout_width="69dp"
-        android:layout_height="67dp"
-        android:alpha="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.391"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.272"
-        app:srcCompat="@drawable/water_filled_icon" />
 
     <ImageView
         android:id="@+id/empty5"
@@ -401,6 +297,7 @@
         android:layout_width="75dp"
         android:layout_height="56dp"
         android:background="@drawable/rounded_corner"
+        android:onClick="add_cup"
         android:text="+"
         android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"

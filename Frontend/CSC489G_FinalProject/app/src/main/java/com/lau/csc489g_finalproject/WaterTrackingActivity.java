@@ -30,10 +30,12 @@ import java.util.Calendar;
 
 public class WaterTrackingActivity extends AppCompatActivity {
 
-    TextView text;
+    TextView cups;
     String user_id, picked_date;
     String [] nb_of_glasses;
+    int nb_of_cups;
     SharedPreferences shared;
+    ImageView empty_cup1, empty_cup2, empty_cup3, empty_cup4, empty_cup5, empty_cup6, empty_cup7, empty_cup8;
     // Implementing the post request using this class
     public class DownloadTask extends AsyncTask<String, Void, String> {
 
@@ -86,8 +88,7 @@ public class WaterTrackingActivity extends AppCompatActivity {
             super.onPostExecute(result);
             //If result incorrect print a toast
             if(result.equals("0")){
-                text.setText(result);
-                Toast.makeText(getApplicationContext(),"Invalid Credentials", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"No data stored on that date", Toast.LENGTH_LONG).show();
             }
             // If result correct convert the received json object to string
             else{
@@ -102,11 +103,68 @@ public class WaterTrackingActivity extends AppCompatActivity {
                     nb_of_glasses = new String[array.length()];
                     obj = (JSONObject) array.get(0);
                     nb_of_glasses[0] = obj.getString("nb_of_glasses");
-                    text.setText(nb_of_glasses[0]);
-                    int nb_of_cups = Integer.parseInt(nb_of_glasses[0]);
+                    nb_of_cups = Integer.parseInt(nb_of_glasses[0]);
                     if (nb_of_cups == 1){
-
+                        empty_cup1.setImageResource(R.drawable.water_filled_icon);
+                        cups.setText("1/8");
                     }
+                    else if (nb_of_cups == 2){
+                        empty_cup1.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup2.setImageResource(R.drawable.water_filled_icon);
+                        cups.setText("2/8");
+                    }
+                    else if (nb_of_cups == 3){
+                        empty_cup1.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup2.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup3.setImageResource(R.drawable.water_filled_icon);
+                        cups.setText("3/8");
+                    }
+                    else if (nb_of_cups == 4){
+                        empty_cup1.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup2.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup3.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup4.setImageResource(R.drawable.water_filled_icon);
+                        cups.setText("4/8");
+                    }
+                    else if (nb_of_cups == 5){
+                        empty_cup1.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup2.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup3.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup4.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup5.setImageResource(R.drawable.water_filled_icon);
+                        cups.setText("5/8");
+                    }
+                    else if (nb_of_cups == 6){
+                        empty_cup1.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup2.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup3.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup4.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup5.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup6.setImageResource(R.drawable.water_filled_icon);
+                        cups.setText("6/8");
+                    }
+                    else if (nb_of_cups == 7){
+                        empty_cup1.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup2.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup3.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup4.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup5.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup6.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup7.setImageResource(R.drawable.water_filled_icon);
+                        cups.setText("7/8");
+                    }
+                    else if (nb_of_cups == 8){
+                        empty_cup1.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup2.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup3.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup4.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup5.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup6.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup7.setImageResource(R.drawable.water_filled_icon);
+                        empty_cup8.setImageResource(R.drawable.water_filled_icon);
+                        cups.setText("8/8");
+                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -121,7 +179,16 @@ public class WaterTrackingActivity extends AppCompatActivity {
         // Hiding the Action Bar from the layout
         getSupportActionBar().hide();
 
-        text = findViewById(R.id.Today);
+        empty_cup1 = findViewById(R.id.empty1);
+        empty_cup2 = findViewById(R.id.empty2);
+        empty_cup3 = findViewById(R.id.empty3);
+        empty_cup4 = findViewById(R.id.empty4);
+        empty_cup5 = findViewById(R.id.empty5);
+        empty_cup6 = findViewById(R.id.empty6);
+        empty_cup7 = findViewById(R.id.empty7);
+        empty_cup8 = findViewById(R.id.empty8);
+
+        cups = findViewById(R.id.cups_nb);
         shared = getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
         user_id = shared.getString("id","");
         picked_date = shared.getString("chosen_date", "");
@@ -148,6 +215,9 @@ public class WaterTrackingActivity extends AppCompatActivity {
     public void goToProfile(View v){
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(intent);
+    }
+    public void add_cup(View v){
+
     }
 
 
