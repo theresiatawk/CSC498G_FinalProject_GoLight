@@ -22,9 +22,9 @@ if (isset($_POST['user_id']) && isset($_POST['date'])) {
         $result = mysqli_query($mysqli, $sql);
 
         if (mysqli_num_rows($result) != 0) {
-            $raw = mysqli_fetch_assoc($result);
+            $row = mysqli_fetch_assoc($result);
             $response = [];
-            $response[] = $raw;
+            $response[] = $row;
             $json_respnse = json_encode($response);
             echo $json_respnse;
         }

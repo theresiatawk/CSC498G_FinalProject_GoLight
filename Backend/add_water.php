@@ -13,15 +13,15 @@ if (isset($_POST['user_id']) && isset($_POST['date']) && isset($_POST['nb_of_gla
     $nb_of_glasses = validate($_POST['nb_of_glasses']);
 
     if (empty($user)) {
-        echo "Empty user id"
+        echo "Empty user id";
         exit();
     }
     else if(empty($date)){
-        echo "Empty date"
+        echo "Empty date";
         exit();
     }
     else if(empty($nb_of_glasses)){
-        echo "Empty number of glasses"
+        echo "Empty number of glasses";
         exit();
     }
     else{
