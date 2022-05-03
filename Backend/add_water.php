@@ -13,14 +13,15 @@ if (isset($_POST['user_id']) && isset($_POST['date']) && isset($_POST['nb_of_gla
     $nb_of_glasses = validate($_POST['nb_of_glasses']);
 
     if (empty($user)) {
+        echo "Empty user id"
         exit();
     }
     else if(empty($date)){
-        echo 2;
+        echo "Empty date"
         exit();
     }
     else if(empty($nb_of_glasses)){
-        echo 2;
+        echo "Empty number of glasses"
         exit();
     }
     else{
@@ -37,7 +38,7 @@ if (isset($_POST['user_id']) && isset($_POST['date']) && isset($_POST['nb_of_gla
             $query = $mysqli->prepare("INSERT INTO water_consumptions(user_id, nb_of_glasses, date) VALUES (?, ?, ?);");
             $query->bind_param("iis", $user, $nb_of_glasses, $date);
             $query->execute();
-            echo "Account Created!";;
+            echo "Data Added!";
         }
     }
 }

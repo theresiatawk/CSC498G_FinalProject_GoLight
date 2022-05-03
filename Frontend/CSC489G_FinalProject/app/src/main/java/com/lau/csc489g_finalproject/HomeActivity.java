@@ -34,7 +34,7 @@ import java.util.Calendar;
 public class HomeActivity extends AppCompatActivity {
 
     double weight_value, height_value, bmi_value;
-    String picked_date, user_id, bmi;
+    String picked_date, user_id, bmi, date_to_display;
     String [] weight, height;
     TextView bmi_analysis, bmi_result, select_date;
     SharedPreferences shared;
@@ -152,10 +152,17 @@ public class HomeActivity extends AppCompatActivity {
         HomeActivity.DownloadTask task = new HomeActivity.DownloadTask();
         task.execute(user_id,url);
 
+
         initDatePicker();
         date_button = findViewById(R.id.datePickerButton);
         select_date = findViewById(R.id.select_date);
-        date_button.setText(getTodaysDate());
+        if (picked_date != ""){
+            date_button.setText(date_to_display);
+        }
+        else {
+            date_button.setText(getTodaysDate());
+        }
+
 
     }
     private String getTodaysDate()
@@ -181,6 +188,8 @@ public class HomeActivity extends AppCompatActivity {
                 picked_date = day + "" + month + "" + year;
                 shared.edit().putString("chosen_date",picked_date).commit();
                 select_date.setText(picked_date);
+                date_button.setText(date);
+                date_to_display = date;
             }
         };
 
