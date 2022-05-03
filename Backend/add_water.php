@@ -34,7 +34,10 @@ if (isset($_POST['user_id']) && isset($_POST['date']) && isset($_POST['nb_of_gla
             echo "Updated!";
         }
         else{
-            echo "No data!";
+            $query = $mysqli->prepare("INSERT INTO water_consumptions(user_id, nb_of_glasses, date) VALUES (?, ?, ?);");
+            $query->bind_param("iis", $user, $nb_of_glasses, $date);
+            $query->execute();
+            echo "Account Created!";;
         }
     }
 }
