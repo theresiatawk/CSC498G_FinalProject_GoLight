@@ -2,7 +2,9 @@ package com.lau.csc489g_finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +30,8 @@ public class WhatExerciseActivity extends AppCompatActivity {
 
     TextView exercise_header;
     EditText exercise_info;
-    String header_to_display;
+    String header_to_display, user_id, picked_date, info_to_add;
+    SharedPreferences shared;
 
     public class DownloadTask extends AsyncTask<String, Void, String> {
 
@@ -76,35 +79,32 @@ public class WhatExerciseActivity extends AppCompatActivity {
                 else if (header_to_display.equalsIgnoreCase("boxing")){
                     bw.write(post3);
                 }
-                else if (header_to_display.equalsIgnoreCase("boxing")){
+                else if (header_to_display.equalsIgnoreCase("baseball")){
                     bw.write(post4);
                 }
-                else if (header_to_display.equalsIgnoreCase("boxing")){
+                else if (header_to_display.equalsIgnoreCase("basketball")){
                     bw.write(post5);
                 }
-                else if (header_to_display.equalsIgnoreCase("boxing")){
+                else if (header_to_display.equalsIgnoreCase("football")){
                     bw.write(post6);
                 }
-                else if (header_to_display.equalsIgnoreCase("boxing")){
+                else if (header_to_display.equalsIgnoreCase("swimming")){
                     bw.write(post7);
                 }
-                else if (header_to_display.equalsIgnoreCase("boxing")){
+                else if (header_to_display.equalsIgnoreCase("skiing")){
                     bw.write(post8);
                 }
-                else if (header_to_display.equalsIgnoreCase("boxing")){
+                else if (header_to_display.equalsIgnoreCase("hiking")){
                     bw.write(post9);
                 }
-                else if (header_to_display.equalsIgnoreCase("boxing")){
+                else if (header_to_display.equalsIgnoreCase("gymnastics")){
                     bw.write(post10);
                 }
-                else if (header_to_display.equalsIgnoreCase("boxing")){
-                    bw.write(post3);
+                else if (header_to_display.equalsIgnoreCase("tennis")){
+                    bw.write(post11);
                 }
-                else if (header_to_display.equalsIgnoreCase("boxing")){
-                    bw.write(post3);
-                }
-                else if (header_to_display.equalsIgnoreCase("boxing")){
-                    bw.write(post3);
+                else if (header_to_display.equalsIgnoreCase("golf")){
+                    bw.write(post12);
                 }
                 bw.flush();
                 bw.close();
@@ -131,65 +131,7 @@ public class WhatExerciseActivity extends AppCompatActivity {
         protected void onPostExecute(String result){
             Intent intent = new Intent(getApplicationContext(), WhatExerciseActivity.class);
             super.onPostExecute(result);
-            //If result incorrect print a toast
-            if(result.equals("No data")){
-                Toast.makeText(getApplicationContext(),"No data on this day", Toast.LENGTH_LONG).show();
-            }
-            // If result correct convert the received json object to string
-            else{
-                try{
-                    JSONArray array = new JSONArray(result);
-                    ArrayList<Object> list = new ArrayList<>();
-                    JSONObject obj;
-
-                    for (int i = 0; i < array.length(); i ++){
-                        list.add(array.get(i));
-                    }
-                    running = new String[array.length()];
-                    dancing = new String[array.length()];
-                    boxing = new String[array.length()];
-                    baseball = new String[array.length()];
-                    basketball = new String[array.length()];
-                    football = new String[array.length()];
-                    swimming = new String[array.length()];
-                    skiing = new String[array.length()];
-                    hiking = new String[array.length()];
-                    gymnastics = new String[array.length()];
-                    tennis = new String[array.length()];
-                    golf = new String[array.length()];
-
-                    obj = (JSONObject) array.get(0);
-                    running[0] = obj.getString("running");
-                    dancing[0] = obj.getString("dancing");
-                    boxing[0] = obj.getString("boxing");
-                    baseball[0] = obj.getString("baseball");
-                    basketball[0] = obj.getString("basketball");
-                    football[0] = obj.getString("football");
-                    swimming[0] = obj.getString("swimming");
-                    skiing[0] = obj.getString("skiing");
-                    hiking[0] = obj.getString("hiking");
-                    gymnastics[0] = obj.getString("gymnastics");
-                    tennis[0] = obj.getString("tennis");
-                    golf[0] = obj.getString("golf");
-
-                    intent.putExtra("running", running[0]);
-                    intent.putExtra("dancing", dancing[0]);
-                    intent.putExtra("boxing", boxing[0]);
-                    intent.putExtra("baseball", baseball[0]);
-                    intent.putExtra("basketball", basketball[0]);
-                    intent.putExtra("football", football[0]);
-                    intent.putExtra("swimming", swimming[0]);
-                    intent.putExtra("skiing", skiing[0]);
-                    intent.putExtra("hiking", hiking[0]);
-                    intent.putExtra("gymnastics", gymnastics[0]);
-                    intent.putExtra("tennis", tennis[0]);
-                    intent.putExtra("golf", golf[0]);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            intent.putExtra("destination", destination);
-            startActivity(intent);
+            Toast.makeText(getApplicationContext(),result, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -283,7 +225,14 @@ public class WhatExerciseActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void addInfo(View v){
+        shared = getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
+        user_id = shared.getString("id", "");
+        picked_date = shared.getString("chosen_date", "");
+        info_to_add = exercise_info.getText().toString();
 
+        String url = "http://192.168.106.1/CSC498G_FinalProject_GoLight/Backend/add_exercises.php";
+        DownloadTask task = new DownloadTask();
+        task.execute(user_id, picked_date, info_to_add, url);
     }
 
 }
