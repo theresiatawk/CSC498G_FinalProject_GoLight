@@ -34,7 +34,6 @@ if (isset($_POST['user_id']) && isset($_POST['date'])){
             $query->bind_param("iss", $user, $running, $date);
             $query->execute();
             echo "Data Added!";
-
         }
     } 
     else if (isset($_POST['dancing'])){
