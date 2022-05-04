@@ -8,7 +8,7 @@
     tools:context=".WhatExerciseActivity">
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
+        android:id="@+id/exercise_info"
         android:layout_width="217dp"
         android:layout_height="290dp"
         android:background="@android:color/transparent"
@@ -44,6 +44,7 @@
         android:layout_width="253dp"
         android:layout_height="37dp"
         android:background="@drawable/semi_rounded"
+        android:onClick="addInfo"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

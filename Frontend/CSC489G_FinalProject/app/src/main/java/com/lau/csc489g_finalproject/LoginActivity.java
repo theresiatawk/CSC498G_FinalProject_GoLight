@@ -145,8 +145,13 @@ public class LoginActivity extends AppCompatActivity {
         String entered_email = edit_text_email.getText().toString();
         String entered_password = edit_text_password.getText().toString();
 
-        String url = "http://192.168.106.1/CSC498G_FinalProject_GoLight/Backend/login.php";
-        DownloadTask task = new DownloadTask();
-        task.execute(entered_email, entered_password,url);
+        if (entered_email.equals("") || entered_password.equals("")){
+            Toast.makeText(getApplicationContext(),"Missing Info",Toast.LENGTH_LONG).show();
+        }
+        else {
+            String url = "http://192.168.106.1/CSC498G_FinalProject_GoLight/Backend/login.php";
+            DownloadTask task = new DownloadTask();
+            task.execute(entered_email, entered_password, url);
+        }
     }
 }

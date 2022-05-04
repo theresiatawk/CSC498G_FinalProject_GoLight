@@ -27,13 +27,13 @@ $password = mysqli_real_escape_string($mysqli, stripslashes(htmlspecialchars($_P
         $result = mysqli_query($mysqli, $sql);
 
         if (mysqli_num_rows($result) != 0) {
-            $raw = mysqli_fetch_assoc($result);
+            $row = mysqli_fetch_assoc($result);
 
-            $dbemail = $raw['email'];
-            $dbpassword = $raw['password'];
+            $dbemail = $row['email'];
+            $dbpassword = $row['password'];
             $response = [];
             if ($dbemail == $email && password_verify($password, $dbpassword)) {
-                $response[] = $raw;
+                $response[] = $row;
                 $json_respnse = json_encode($response);
                 echo $json_respnse;
                 exit();
