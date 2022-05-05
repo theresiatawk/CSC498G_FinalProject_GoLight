@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences shared;
 
 
-    // Implementing the post request using this class
+    // Implementing the post and get request using this class
     public class DownloadTask extends AsyncTask<String, Void, String> {
 
         protected String doInBackground(String... params) {
@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                 OutputStream out_stream = http.getOutputStream();
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out_stream, "UTF-8"));
 
+                // Sending the email and password to the backend
                 String post1 = URLEncoder.encode("email", "UTF-8")+"="+ URLEncoder.encode(first_param, "UTF-8")+"&"+URLEncoder.encode("password", "UTF-8")+"="+ URLEncoder.encode(second_param, "UTF-8");
                 bw.write(post1);
                 bw.flush();
@@ -90,10 +91,9 @@ public class LoginActivity extends AppCompatActivity {
             super.onPostExecute(result);
             //If result incorrect print a toast
             if(result.equals("Incorrect Username or password")){
-                text.setText(result);
                 Toast.makeText(getApplicationContext(),"Invalid Credentials", Toast.LENGTH_LONG).show();
             }
-            // If result correct convert the received json object to string
+            // If result correct convert the received json object to string and go to home page
             else{
                 try{
                     JSONArray array = new JSONArray(result);
@@ -103,9 +103,11 @@ public class LoginActivity extends AppCompatActivity {
                     for (int i = 0; i < array.length(); i ++){
                         list.add(array.get(i));
                     }
+                    // receiving the user_id from the api
                     user_id = new String[array.length()];
                     obj = (JSONObject) array.get(0);
                     user_id[0] = obj.getString("user_id");
+                    // adding user_id in a shared preference
                     shared = getApplicationContext().getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
                     shared.edit().putString("id",user_id[0]).commit();
                 } catch (Exception e) {
@@ -125,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
         // Hiding the Action Bar from the layout
         getSupportActionBar().hide();
 
+        // Linking variables to components of the layout
         edit_text_email = (EditText) findViewById(R.id.email);
         edit_text_password = (EditText) findViewById(R.id.password);
         login_button = (Button) findViewById(R.id.buttonLogin);
@@ -136,11 +139,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
         startActivity(intent);
     }
-    // OnClick on login go to Home page
-    public void goToHome(View v){
-        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-        startActivity(intent);
-    }
+    // on click on login check credentials with db
     public void onLogin(View v){
         String entered_email = edit_text_email.getText().toString();
         String entered_password = edit_text_password.getText().toString();

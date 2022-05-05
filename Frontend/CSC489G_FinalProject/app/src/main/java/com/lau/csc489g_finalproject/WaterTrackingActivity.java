@@ -36,7 +36,8 @@ public class WaterTrackingActivity extends AppCompatActivity {
     int nb_of_cups = 0;
     SharedPreferences shared;
     ImageView empty_cup1, empty_cup2, empty_cup3, empty_cup4, empty_cup5, empty_cup6, empty_cup7, empty_cup8;
-    // Implementing the post request using this class
+
+    // Implementing the post and get request using this class
     public class DownloadTask extends AsyncTask<String, Void, String> {
 
         protected String doInBackground(String... params) {
@@ -60,6 +61,7 @@ public class WaterTrackingActivity extends AppCompatActivity {
                 OutputStream out_stream = http.getOutputStream();
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out_stream, "UTF-8"));
 
+                // Sending the user_id and date to fetch the nb_of glasses needed
                 String post1 = URLEncoder.encode("user_id", "UTF-8")+"="+ URLEncoder.encode(first_param, "UTF-8")+"&"+URLEncoder.encode("date", "UTF-8")+"="+ URLEncoder.encode(second_param, "UTF-8");
                 bw.write(post1);
                 bw.flush();
@@ -86,12 +88,12 @@ public class WaterTrackingActivity extends AppCompatActivity {
         }
         protected void onPostExecute(String result){
             super.onPostExecute(result);
-            //If result incorrect print a toast
+            //If result are not found print a toast
             if(result.equals("0")){
                 nb_of_cups = 0;
                 Toast.makeText(getApplicationContext(),"No data stored on that date", Toast.LENGTH_LONG).show();
             }
-            // If result correct convert the received json object to string
+            // If result found convert the received json object to string
             else{
                 try{
                     JSONArray array = new JSONArray(result);
@@ -101,10 +103,13 @@ public class WaterTrackingActivity extends AppCompatActivity {
                     for (int i = 0; i < array.length(); i ++){
                         list.add(array.get(i));
                     }
+                    // Getting the number of glasses consumed on that date for a specific user
                     nb_of_glasses = new String[array.length()];
                     obj = (JSONObject) array.get(0);
                     nb_of_glasses[0] = obj.getString("nb_of_glasses");
                     nb_of_cups = Integer.parseInt(nb_of_glasses[0]);
+
+                    // Setting the resource to a filled cup based on the number of cups
                     if (nb_of_cups == 1){
                         empty_cup1.setImageResource(R.drawable.water_filled_icon);
                         cups.setText("1/8");
@@ -172,6 +177,8 @@ public class WaterTrackingActivity extends AppCompatActivity {
             }
         }
     }
+
+    // Implementing a class to update the nb_of_glasses
     public class DownloadTask2 extends AsyncTask<String, Void, String> {
 
         protected String doInBackground(String... params) {
@@ -219,10 +226,8 @@ public class WaterTrackingActivity extends AppCompatActivity {
                 return null;
             }
         }
-
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            cups.setText(result);
         }
     }
     @Override
@@ -233,6 +238,7 @@ public class WaterTrackingActivity extends AppCompatActivity {
         // Hiding the Action Bar from the layout
         getSupportActionBar().hide();
 
+        // Linking variables to components of the layout
         empty_cup1 = findViewById(R.id.empty1);
         empty_cup2 = findViewById(R.id.empty2);
         empty_cup3 = findViewById(R.id.empty3);
@@ -241,45 +247,53 @@ public class WaterTrackingActivity extends AppCompatActivity {
         empty_cup6 = findViewById(R.id.empty6);
         empty_cup7 = findViewById(R.id.empty7);
         empty_cup8 = findViewById(R.id.empty8);
-
         cups = findViewById(R.id.cups_nb);
+
+        // Getting the user_id and the date from the shared preference
         shared = getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
         user_id = shared.getString("id","");
         picked_date = shared.getString("chosen_date", "");
+
+        // Calling the class to display water info
         String url = "http://192.168.106.1/CSC498G_FinalProject_GoLight/Backend/water_track.php";
         WaterTrackingActivity.DownloadTask task = new WaterTrackingActivity.DownloadTask();
         task.execute(user_id, picked_date,url);
     }
-
+    // On click on the home icon go to the home page
     public void goToHome(View v){
         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(intent);
     }
-
+    // On click on the fork and knife icon go to the food page
     public void goToFoodTracking(View v){
         Intent intent = new Intent(getApplicationContext(), FoodTrackingActivity.class);
         startActivity(intent);
     }
-
+    // On click on the dumbbell icon go to the exercise page
     public void goToExerciseTracking(View v){
         Intent intent = new Intent(getApplicationContext(), ExerciseTrackingActivity.class);
         startActivity(intent);
     }
-
+    // On click on the user icon go to the profile page
     public void goToProfile(View v){
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(intent);
     }
+    // On click on add a cup updte the databse accordingly as wll as the front end
     public void add_cup(View v){
+        // Checking whether the user reach the limit or not
         if (nb_of_cups < 8) {
+            // Get the user_id and date fro the shared preference
             shared = getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
             user_id = shared.getString("id", "");
             picked_date = shared.getString("chosen_date", "");
             nb_of_cups = nb_of_cups + 1;
             total_nb = nb_of_cups + "";
+            // Update db
             String url1 = "http://192.168.106.1/CSC498G_FinalProject_GoLight/Backend/add_water.php";
             WaterTrackingActivity.DownloadTask2 task2 = new WaterTrackingActivity.DownloadTask2();
             task2.execute(user_id, picked_date, total_nb, url1);
+            // Get the changes and display them
             String url2 = "http://192.168.106.1/CSC498G_FinalProject_GoLight/Backend/water_track.php";
             WaterTrackingActivity.DownloadTask task = new WaterTrackingActivity.DownloadTask();
             task.execute(user_id, picked_date, url2);

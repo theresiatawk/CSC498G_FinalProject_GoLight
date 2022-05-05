@@ -36,7 +36,9 @@ public class ProfileActivity extends AppCompatActivity {
     String [] first_name, last_name, email, gender, weight, height, date_of_birth;
     TextView username, result_text;
     EditText birth_date_text, mail_text, gender_text,weight_text, height_text;
-    // Implementing the post request using this class
+
+
+    // Implementing the post and get request using this class
     public class DownloadTask extends AsyncTask<String, Void, String> {
 
         protected String doInBackground(String... params) {
@@ -59,6 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
                 OutputStream out_stream = http.getOutputStream();
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out_stream, "UTF-8"));
 
+                // Sending the user_id to fetch info based on it
                 String post1 = URLEncoder.encode("user_id", "UTF-8")+"="+ URLEncoder.encode(first_param, "UTF-8");
                 bw.write(post1);
                 bw.flush();
@@ -85,14 +88,14 @@ public class ProfileActivity extends AppCompatActivity {
         }
         protected void onPostExecute(String result){
             super.onPostExecute(result);
-            //If result incorrect print a toast
+            //If user_id not found  print a toast
             if(result.equals("Invalid user")){
-                result_text.setText(result);
                 Toast.makeText(getApplicationContext(),"Invalid Credentials", Toast.LENGTH_LONG).show();
             }
-            // If result correct convert the received json object to string
+            // If user found convert the received json object to string
             else{
                 try{
+                    // Getting all the information related to this specific user
                     JSONArray array = new JSONArray(result);
                     ArrayList<Object> list = new ArrayList<>();
                     JSONObject obj;
@@ -117,6 +120,7 @@ public class ProfileActivity extends AppCompatActivity {
                     height[0] = obj.getString("height");
                     date_of_birth[0] = obj.getString("date_of_birth");
 
+                    // Display information on the screen
                     username.setText(first_name[0]+" "+last_name[0]);
                     birth_date_text.setText(date_of_birth[0]);
                     mail_text.setText(email[0]);
@@ -131,6 +135,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
     }
+    // Implementing the post request (when editing some information)
     public class DownloadTask2 extends AsyncTask<String, Void, String> {
 
         protected String doInBackground(String... params) {
@@ -158,6 +163,7 @@ public class ProfileActivity extends AppCompatActivity {
                 OutputStream out_stream = http.getOutputStream();
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out_stream, "UTF-8"));
 
+                // Sending all the attributes of the user to the api
                 String post1 = URLEncoder.encode("user_id", "UTF-8")+"="+ URLEncoder.encode(user_id_param, "UTF-8")+"&"+URLEncoder.encode("date_of_birth", "UTF-8")+"="+ URLEncoder.encode(date_of_birth_param, "UTF-8")+"&"+URLEncoder.encode("email", "UTF-8")+"="+ URLEncoder.encode(email_param, "UTF-8")+"&"+URLEncoder.encode("gender", "UTF-8")+"="+ URLEncoder.encode(gender_param, "UTF-8")+"&"+URLEncoder.encode("weight", "UTF-8")+"="+ URLEncoder.encode(weight_param, "UTF-8")+"&"+URLEncoder.encode("height", "UTF-8")+"="+ URLEncoder.encode(height_param, "UTF-8");
                 bw.write(post1);
                 bw.flush();
@@ -189,9 +195,9 @@ public class ProfileActivity extends AppCompatActivity {
                 result_text.setText(result);
                 Toast.makeText(getApplicationContext(),"This email already exist", Toast.LENGTH_LONG).show();
             }
-            // If result correct convert the received json object to string
+            // If result correct print a toast that information are updated
             else{
-                result_text.setText(result);
+                Toast.makeText(getApplicationContext(),result, Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -203,6 +209,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Hiding the Action Bar from the layout
         getSupportActionBar().hide();
+
+        // Linking variables to components of the layout
         username = (TextView) findViewById(R.id.username);
         result_text = (TextView) findViewById(R.id.result);
         birth_date_text = (EditText) findViewById(R.id.date_of_birth);
@@ -211,32 +219,36 @@ public class ProfileActivity extends AppCompatActivity {
         weight_text = (EditText) findViewById(R.id.user_weight);
         height_text = (EditText) findViewById(R.id.user_height);
 
+        // Getting the user_id from the shared preference
         shared = getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
         user_id = shared.getString("id","");
+
+        // Calling the first class which will allow me to see user information
         String url = "http://192.168.106.1/CSC498G_FinalProject_GoLight/Backend/getProfile.php";
-        ProfileActivity.DownloadTask task = new ProfileActivity.DownloadTask();
+        DownloadTask task = new DownloadTask();
         task.execute(user_id,url);
     }
-
+    // On click on the home icon go to the home page
     public void goToHome(View v){
         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(intent);
     }
-
+    // On click on the water icon go to the water page
     public void goToWaterTracking(View v){
         Intent intent = new Intent(getApplicationContext(), WaterTrackingActivity.class);
         startActivity(intent);
     }
-
+    // On click on the fork and knife icon go to the food page
     public void goToFoodTracking(View v){
         Intent intent = new Intent(getApplicationContext(), FoodTrackingActivity.class);
         startActivity(intent);
     }
-
+    // On click on the dumbbell icon go to the exercise page
     public void goToExerciseTracking(View v){
         Intent intent = new Intent(getApplicationContext(), ExerciseTrackingActivity.class);
         startActivity(intent);
     }
+    // On click on the save button check all the information and send them to the api through the second class
     public void editInfo(View v){
         updated_birth_date = birth_date_text.getText().toString();
         updated_email = mail_text.getText().toString();
@@ -244,22 +256,29 @@ public class ProfileActivity extends AppCompatActivity {
         updated_weight = weight_text.getText().toString();
         updated_height = height_text.getText().toString();
 
+        // Check if valid format of email
         if(!(updated_email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+") || !(updated_email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+\\.+[a-z]") || updated_email.length() == 0))){
             result_text.setText("Invalid email format!");
         }
+        // Check if valid format of date of birth
         else if(!isValidDate(updated_birth_date) || updated_birth_date.length() == 0){
             result_text.setText("Make sure the birth date format is of the form dd/MM/yyyy");
         }
+        //Check if valid gender
         else if(!updated_gender.equalsIgnoreCase("male") && !updated_gender.equalsIgnoreCase("female") && !updated_gender.equalsIgnoreCase("none")){
             result_text.setText("Invalid gender format! Please enter female, male or none");
         }
+        // Check if valid weight
         else if(!updated_weight.matches( "[0-9]*" ) || updated_weight.length() == 0){
             result_text.setText("Invalid weight format!");
         }
+        // Check if valid height
         else if(!updated_height.matches( "[0-9]*" ) || updated_height.length() == 0){
             result_text.setText("Invalid height format!");
         }
+        // If all valid send data to the api
         else {
+            // Getting the user_id from the shared preference and
             shared = getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
             user_id = shared.getString("id", "");
 
@@ -268,6 +287,8 @@ public class ProfileActivity extends AppCompatActivity {
             task.execute(user_id, updated_birth_date, updated_email, updated_gender, updated_weight, updated_height, url);
         }
     }
+
+    // Checking whether the date of birth is of the form dd/mm/yyyy
     public static boolean isValidDate(String str){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setLenient(false);

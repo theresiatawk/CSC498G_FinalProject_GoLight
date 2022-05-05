@@ -61,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
                 OutputStream out_stream = http.getOutputStream();
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out_stream, "UTF-8"));
 
+                // Sending all the needed info to the database
                 String post1 = URLEncoder.encode("first_name", "UTF-8")+"="+ URLEncoder.encode(first_name, "UTF-8")+"&"+URLEncoder.encode("last_name", "UTF-8")+"="+ URLEncoder.encode(last_name, "UTF-8")+"&"+URLEncoder.encode("email", "UTF-8")+"="+ URLEncoder.encode(email, "UTF-8")+"&"+URLEncoder.encode("date_of_birth", "UTF-8")+"="+ URLEncoder.encode(date_of_birth, "UTF-8")+"&"+URLEncoder.encode("gender", "UTF-8")+"="+ URLEncoder.encode(gender, "UTF-8")+"&"+URLEncoder.encode("password", "UTF-8")+"="+ URLEncoder.encode(password, "UTF-8")+"&"+URLEncoder.encode("height", "UTF-8")+"="+ URLEncoder.encode(height, "UTF-8")+"&"+URLEncoder.encode("weight", "UTF-8")+"="+ URLEncoder.encode(weight, "UTF-8");
                 bw.write(post1);
                 bw.flush();
@@ -78,18 +79,6 @@ public class RegisterActivity extends AppCompatActivity {
                 br.close();
                 in_stream.close();
                 http.disconnect();
-
-                //If result correct go to home page else print a toast
-                if(result.equals("Account Created!")){
-                    Toast.makeText(getApplicationContext(),"Account Created!", Toast.LENGTH_LONG).show();
-                    text.setText(result);
-                    Intent intentt = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(intentt);
-                }
-                else{
-                    text.setText(result);
-                    Toast.makeText(getApplicationContext(),"This account already exist", Toast.LENGTH_LONG).show();
-                }
                 return result;
             }
             catch(Exception e){
@@ -97,8 +86,19 @@ public class RegisterActivity extends AppCompatActivity {
                 return null;
             }
         }
-        protected void onPostExecute(String s){
-            super.onPostExecute(s);
+        protected void onPostExecute(String result){
+
+            super.onPostExecute(result);
+            //If account created go to login page else print a toast
+            if(result.equals("Account Created!")){
+                Toast.makeText(getApplicationContext(),"Account Created!", Toast.LENGTH_LONG).show();
+                Intent intentt = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intentt);
+            }
+            else{
+                text.setText(result);
+                Toast.makeText(getApplicationContext(),"This account already exist", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -110,6 +110,8 @@ public class RegisterActivity extends AppCompatActivity {
         // Hiding the Action Bar from the layout
         getSupportActionBar().hide();
 
+
+        // Linking variables to components of the layout
         edit_text_first_name = (EditText) findViewById(R.id.first_name);
         edit_text_last_name = (EditText) findViewById(R.id.last_name);
         edit_text_email = (EditText) findViewById(R.id.email_signup);
@@ -121,10 +123,12 @@ public class RegisterActivity extends AppCompatActivity {
         text = (TextView) findViewById(R.id.text_signup);
 
     }
+    // OnClick on login go to login page
     public void goToLogin(View v){
-        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
     }
+    // On click on sign up check the entered information
     public void onSignUp(View v){
         String entered_first_name = edit_text_first_name.getText().toString();
         String entered_last_name = edit_text_last_name.getText().toString();
@@ -135,30 +139,39 @@ public class RegisterActivity extends AppCompatActivity {
         String entered_weight = edit_text_weight.getText().toString();
         String entered_height = edit_text_height.getText().toString();
 
+        // Check if valid format of first name
         if(!entered_first_name.matches( "[a-zA-Z]*" ) || entered_first_name.length() == 0){
             text.setText("Invalid first name format!");
         }
+        // Check if valid format of lastname
         else if(!entered_last_name.matches( "[a-zA-z]+([ '-][a-zA-Z]+)*" ) || entered_last_name.length() == 0){
             text.setText("Invalid last name format!");
         }
+        // Check if valid format of email
         else if(!(entered_email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+") || !(entered_email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+\\.+[a-z]") || entered_email.length() == 0))){
             text.setText("Invalid email format!");
         }
+        // Check if strong password
         else if(entered_password.length()<8 || !isValidPassword(entered_password)){
             text.setText("Password must contain minimum 8 characters at least 1 Alphabet, 1 Number and 1 Special Character");
         }
-         else if(!isValidDate(entered_birth) || entered_birth.length() == 0){
+        // Check if valid format of date of birth
+        else if(!isValidDate(entered_birth) || entered_birth.length() == 0){
             text.setText("Invalid birth date format! Make sure it will be of the form dd/MM/yyyy");
         }
+        //Check if valid gender
         else if(!entered_gender.equalsIgnoreCase("male") && !entered_gender.equalsIgnoreCase("female") && !entered_gender.equalsIgnoreCase("none")){
             text.setText("Invalid gender format! Please enter female, male or none");
         }
+        // Check if valid height
         else if(!entered_height.matches( "[0-9]*" ) || entered_height.length() == 0){
             text.setText("Invalid height format!");
         }
+        // Check if valid weight
         else if(!entered_weight.matches( "[0-9]*" ) || entered_weight.length() == 0){
             text.setText("Invalid weight format!");
         }
+        // If all valid send data to the api
         else {
             String url = "http://192.168.106.1/CSC498G_FinalProject_GoLight/Backend/signup.php";
             DownloadTask register_task = new DownloadTask();
@@ -175,7 +188,7 @@ public class RegisterActivity extends AppCompatActivity {
         matcher = pattern.matcher(password);
         return matcher.matches();
     }
-
+    // Checking whether the date of birth is of the form dd/mm/yyyy
     public static boolean isValidDate(String str){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setLenient(false);

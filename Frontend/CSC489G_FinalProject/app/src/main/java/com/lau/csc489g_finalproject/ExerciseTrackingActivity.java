@@ -28,9 +28,9 @@ public class ExerciseTrackingActivity extends AppCompatActivity {
 
     String[] running, dancing, boxing, baseball, basketball, football, swimming, skiing, hiking, gymnastics, tennis, golf;
     String user_id, picked_date, destination;
-    String running_info, dancing_info, boxing_info, baseball_info, basketball_info, football_info, swimming_info, skiing_info, hiking_info, gymnastics_info, tennis_info, golf_info;
     SharedPreferences shared;
 
+    // Implementing the post and get request using this class
     public class DownloadTask extends AsyncTask<String, Void, String> {
 
         protected String doInBackground(String... params) {
@@ -54,6 +54,7 @@ public class ExerciseTrackingActivity extends AppCompatActivity {
                 OutputStream out_stream = http.getOutputStream();
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out_stream, "UTF-8"));
 
+                // Send the user_id and date to fetch the needed data
                 String post1 = URLEncoder.encode("user_id", "UTF-8")+"="+ URLEncoder.encode(first_param, "UTF-8")+"&"+URLEncoder.encode("date", "UTF-8")+"="+ URLEncoder.encode(second_param, "UTF-8");
                 bw.write(post1);
                 bw.flush();
@@ -81,11 +82,11 @@ public class ExerciseTrackingActivity extends AppCompatActivity {
         protected void onPostExecute(String result){
             Intent intent = new Intent(getApplicationContext(), WhatExerciseActivity.class);
             super.onPostExecute(result);
-            //If result incorrect print a toast
+            //If result not found print a toast
             if(result.equals("No data")){
                 Toast.makeText(getApplicationContext(),"No data on this day", Toast.LENGTH_LONG).show();
             }
-            // If result correct convert the received json object to string
+            // If result found convert the received json object to string
             else{
                 try{
                     JSONArray array = new JSONArray(result);
@@ -95,6 +96,7 @@ public class ExerciseTrackingActivity extends AppCompatActivity {
                     for (int i = 0; i < array.length(); i ++){
                         list.add(array.get(i));
                     }
+                    // Getting the info from the db
                     running = new String[array.length()];
                     dancing = new String[array.length()];
                     boxing = new String[array.length()];
@@ -122,6 +124,7 @@ public class ExerciseTrackingActivity extends AppCompatActivity {
                     tennis[0] = obj.getString("tennis");
                     golf[0] = obj.getString("golf");
 
+                    // Transfer these data to next page to be displayed there
                     intent.putExtra("running", running[0]);
                     intent.putExtra("dancing", dancing[0]);
                     intent.putExtra("boxing", boxing[0]);
@@ -150,35 +153,37 @@ public class ExerciseTrackingActivity extends AppCompatActivity {
         // Hiding the Action Bar from the layout
         getSupportActionBar().hide();
     }
-
+    // On click on the home icon go to the home page
     public void goToHome(View v){
         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(intent);
     }
-
+    // On click on the water icon go to the water page
     public void goToWaterTracking(View v){
         Intent intent = new Intent(getApplicationContext(), WaterTrackingActivity.class);
         startActivity(intent);
     }
-
+    // On click on the fork and knife icon go to the food page
     public void goToFoodTracking(View v){
         Intent intent = new Intent(getApplicationContext(), FoodTrackingActivity.class);
         startActivity(intent);
     }
-
+    // On click on the user icon go to the profile page
     public void goToProfile(View v){
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(intent);
     }
+    // On Click on on of the image, get the needed information and transfer them to the next page to be displayed
     public void goToEdit(View v){
         // Getting the tag of the view clicked
-
         destination = v.getTag().toString();
 
+        // Getting the user_id and date from the shared preference
         shared = getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
         user_id = shared.getString("id", "");
         picked_date = shared.getString("chosen_date", "");
 
+        // Calling the class to get the needed information and transfer them to the next page to be displayed
         String url = "http://192.168.106.1/CSC498G_FinalProject_GoLight/Backend/exercise_track.php";
         DownloadTask task = new DownloadTask();
         task.execute(user_id, picked_date, url);

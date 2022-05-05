@@ -29,6 +29,7 @@ public class FoodTrackingActivity extends AppCompatActivity {
     String destination, user_id, picked_date;
     SharedPreferences shared;
 
+    // Implementing the post and get request using this class
     public class DownloadTask extends AsyncTask<String, Void, String> {
 
         protected String doInBackground(String... params) {
@@ -52,6 +53,7 @@ public class FoodTrackingActivity extends AppCompatActivity {
                 OutputStream out_stream = http.getOutputStream();
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out_stream, "UTF-8"));
 
+                // Send the user_id and date to fetch the needed data
                 String post1 = URLEncoder.encode("user_id", "UTF-8")+"="+ URLEncoder.encode(first_param, "UTF-8")+"&"+URLEncoder.encode("date", "UTF-8")+"="+ URLEncoder.encode(second_param, "UTF-8");
                 bw.write(post1);
                 bw.flush();
@@ -79,11 +81,11 @@ public class FoodTrackingActivity extends AppCompatActivity {
         protected void onPostExecute(String result){
             Intent intentt = new Intent(getApplicationContext(), WhatFoodActivity.class);
             super.onPostExecute(result);
-            //If result incorrect print a toast
+            //If result not found print a toast
             if(result.equals("No data")){
                 Toast.makeText(getApplicationContext(),"No data on this day", Toast.LENGTH_LONG).show();
             }
-            // If result correct convert the received json object to string
+            // If result found convert the received json object to string
             else{
                 try{
                     JSONArray array = new JSONArray(result);
@@ -93,6 +95,7 @@ public class FoodTrackingActivity extends AppCompatActivity {
                     for (int i = 0; i < array.length(); i ++){
                         list.add(array.get(i));
                     }
+                    // Getting the info from the db
                     breakfast = new String[array.length()];
                     lunch = new String[array.length()];
                     dinner = new String[array.length()];
@@ -104,6 +107,7 @@ public class FoodTrackingActivity extends AppCompatActivity {
                     dinner[0] = obj.getString("dinner");
                     snack[0] = obj.getString("snack");
 
+                    // Transfer these data to next pge to be displayed there
                     intentt.putExtra("breakfast", breakfast[0]);
                     intentt.putExtra("lunch", lunch[0]);
                     intentt.putExtra("dinner", dinner[0]);
@@ -125,34 +129,37 @@ public class FoodTrackingActivity extends AppCompatActivity {
         // Hiding the Action Bar from the layout
         getSupportActionBar().hide();
     }
-
+    // On click on the home icon go to the home page
     public void goToHome(View v){
         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(intent);
     }
-
+    // On click on the water icon go to the water page
     public void goToWaterTracking(View v){
         Intent intent = new Intent(getApplicationContext(), WaterTrackingActivity.class);
         startActivity(intent);
     }
-
+    // On click on the dumbbell icon go to the exercise page
     public void goToExerciseTracking(View v){
         Intent intent = new Intent(getApplicationContext(), ExerciseTrackingActivity.class);
         startActivity(intent);
     }
-
+    // On click on the user icon go to the profile page
     public void goToProfile(View v){
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(intent);
     }
-
+    // On Click on on of the image, get the needed information and transfer them to teh next page to be displayed
     public void goToEdit(View v){
         // Getting the tag of the view clicked
         destination = v.getTag().toString();
+
+        // Getting the user_id and date from the shared preference
         shared = getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
         user_id = shared.getString("id", "");
         picked_date = shared.getString("chosen_date", "");
 
+        // Calling the class to get the needed information and transfer them to the next page to be displayed
         String url = "http://192.168.106.1/CSC498G_FinalProject_GoLight/Backend/food_track.php";
         DownloadTask task = new DownloadTask();
         task.execute(user_id, picked_date, url);

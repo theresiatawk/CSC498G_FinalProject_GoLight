@@ -29,6 +29,7 @@ public class WhatFoodActivity extends AppCompatActivity {
     String header_to_display, user_id, picked_date, info_to_add;
     SharedPreferences shared;
 
+    // Implementing the post request of info using this class
     public class DownloadTask extends AsyncTask<String, Void, String> {
 
         protected String doInBackground(String... params) {
@@ -53,6 +54,7 @@ public class WhatFoodActivity extends AppCompatActivity {
                 OutputStream out_stream = http.getOutputStream();
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out_stream, "UTF-8"));
 
+                // Sending the information entered to a specific attribute in the database table
                 String post1 = URLEncoder.encode("user_id", "UTF-8")+"="+ URLEncoder.encode(first_param, "UTF-8")+"&"+URLEncoder.encode("date", "UTF-8")+"="+ URLEncoder.encode(second_param, "UTF-8")+"&"+URLEncoder.encode("breakfast", "UTF-8")+"="+ URLEncoder.encode(third_param, "UTF-8");
                 String post2 = URLEncoder.encode("user_id", "UTF-8")+"="+ URLEncoder.encode(first_param, "UTF-8")+"&"+URLEncoder.encode("date", "UTF-8")+"="+ URLEncoder.encode(second_param, "UTF-8")+"&"+URLEncoder.encode("lunch", "UTF-8")+"="+ URLEncoder.encode(third_param, "UTF-8");
                 String post3 = URLEncoder.encode("user_id", "UTF-8")+"="+ URLEncoder.encode(first_param, "UTF-8")+"&"+URLEncoder.encode("date", "UTF-8")+"="+ URLEncoder.encode(second_param, "UTF-8")+"&"+URLEncoder.encode("dinner", "UTF-8")+"="+ URLEncoder.encode(third_param, "UTF-8");
@@ -105,6 +107,7 @@ public class WhatFoodActivity extends AppCompatActivity {
         // Hiding the Action Bar from the layout
         getSupportActionBar().hide();
 
+        // Linking variables to components of the layout
         food_header = (TextView) findViewById(R.id.header);
         food_info = (EditText) findViewById(R.id.food_info);
 
@@ -112,6 +115,7 @@ public class WhatFoodActivity extends AppCompatActivity {
         Intent intent = getIntent();
         header_to_display = intent.getStringExtra("destination");
 
+        // Getting all the transferred data from the previous page and display one of them based on the header of the page
         String breakfast = intent.getStringExtra("breakfast");
         String lunch = intent.getStringExtra("lunch");
         String dinner = intent.getStringExtra("dinner");
@@ -132,33 +136,39 @@ public class WhatFoodActivity extends AppCompatActivity {
             food_info.setText(snack);
         }
     }
+    // On click on the home icon go to the home page
     public void goToHome(View v){
         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(intent);
     }
-
+    // On click on the water icon go to the water page
     public void goToWaterTracking(View v){
         Intent intent = new Intent(getApplicationContext(), WaterTrackingActivity.class);
         startActivity(intent);
     }
-
+    // On click on the fork and knife icon go to the food page
     public void goToFoodTracking(View v){
         Intent intent = new Intent(getApplicationContext(), FoodTrackingActivity.class);
         startActivity(intent);
     }
-
+    // On click on the dumbbell icon go to the exercise page
     public void goToExerciseTracking(View v){
         Intent intent = new Intent(getApplicationContext(), ExerciseTrackingActivity.class);
         startActivity(intent);
     }
+    // On click on the user icon go to the profile page
     public void goToProfile(View v){
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(intent);
     }
+    // On click on save button update the database accordingly using the class of post request
     public void addInfo(View v){
+        // Getting the user_id and date from shared preference
         shared = getSharedPreferences("com.lau.csc489g_finalproject", Context.MODE_PRIVATE);
         user_id = shared.getString("id", "");
         picked_date = shared.getString("chosen_date", "");
+
+        // Getting the info entered to add them to the database
         info_to_add = food_info.getText().toString();
 
         String url = "http://192.168.106.1/CSC498G_FinalProject_GoLight/Backend/add_food.php";
