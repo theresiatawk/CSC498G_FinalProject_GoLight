@@ -129,7 +129,6 @@ public class WhatExerciseActivity extends AppCompatActivity {
             }
         }
         protected void onPostExecute(String result){
-            Intent intent = new Intent(getApplicationContext(), WhatExerciseActivity.class);
             super.onPostExecute(result);
             Toast.makeText(getApplicationContext(),result, Toast.LENGTH_LONG).show();
         }

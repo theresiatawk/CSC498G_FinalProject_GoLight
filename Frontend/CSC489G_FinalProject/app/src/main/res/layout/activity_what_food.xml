@@ -12,6 +12,7 @@
         android:layout_width="256dp"
         android:layout_height="39dp"
         android:background="@drawable/semi_rounded"
+        android:onClick="addInfo"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
