@@ -22,13 +22,12 @@ $password = mysqli_real_escape_string($mysqli, stripslashes(htmlspecialchars($_P
         exit();
     }
     else{
-    
-        $sql = "SELECT * FROM users WHERE email = '" . $email . "'";
-        $result = mysqli_query($mysqli, $sql);
-
-        if (mysqli_num_rows($result) != 0) {
-            $row = mysqli_fetch_assoc($result);
-
+        $query = $mysqli->prepare("SELECT * FROM users WHERE email = ?;");
+        $query->bind_param("s",$email);
+        $query->execute();
+        if($query->num_rows == 0){
+            $array = $query->get_result();
+            $row = $array->fetch_assoc();
             $dbemail = $row['email'];
             $dbpassword = $row['password'];
             $response = [];
