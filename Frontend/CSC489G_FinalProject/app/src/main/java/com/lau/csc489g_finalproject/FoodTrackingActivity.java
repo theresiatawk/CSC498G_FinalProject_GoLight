@@ -99,15 +99,15 @@ public class FoodTrackingActivity extends AppCompatActivity {
                     snack = new String[array.length()];
 
                     obj = (JSONObject) array.get(0);
-                    breakfast[0] = obj.getString("running");
-                    lunch[0] = obj.getString("dancing");
-                    dinner[0] = obj.getString("boxing");
-                    snack[0] = obj.getString("baseball");
+                    breakfast[0] = obj.getString("breakfast");
+                    lunch[0] = obj.getString("lunch");
+                    dinner[0] = obj.getString("dinner");
+                    snack[0] = obj.getString("snack");
 
-                    intentt.putExtra("running", breakfast[0]);
-                    intentt.putExtra("dancing", lunch[0]);
-                    intentt.putExtra("boxing", dinner[0]);
-                    intentt.putExtra("baseball", snack[0]);
+                    intentt.putExtra("breakfast", breakfast[0]);
+                    intentt.putExtra("lunch", lunch[0]);
+                    intentt.putExtra("dinner", dinner[0]);
+                    intentt.putExtra("snack", snack[0]);
 
                 } catch (Exception e) {
                     e.printStackTrace();

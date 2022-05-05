@@ -103,7 +103,7 @@
         app:srcCompat="@drawable/home_icon" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/food_info"
         android:layout_width="231dp"
         android:layout_height="325dp"
         android:background="@android:color/transparent"

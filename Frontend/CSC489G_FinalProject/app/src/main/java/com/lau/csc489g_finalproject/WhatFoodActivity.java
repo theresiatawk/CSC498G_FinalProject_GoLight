@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class WhatFoodActivity extends AppCompatActivity {
 
-    TextView header;
+    TextView food_header;
+    EditText food_info;
+    String header_to_display;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,12 +22,32 @@ public class WhatFoodActivity extends AppCompatActivity {
         // Hiding the Action Bar from the layout
         getSupportActionBar().hide();
 
-        header = (TextView) findViewById(R.id.header);
+        food_header = (TextView) findViewById(R.id.header);
+        food_info = (EditText) findViewById(R.id.food_info);
 
         // Getting the tag transferred from Food activity page
         Intent intent = getIntent();
-        String header_to_display = intent.getStringExtra("destination");
-        header.setText(header_to_display);
+        header_to_display = intent.getStringExtra("destination");
+
+        String breakfast = intent.getStringExtra("breakfast");
+        String lunch = intent.getStringExtra("lunch");
+        String dinner = intent.getStringExtra("dinner");
+        String snack = intent.getStringExtra("snack");
+
+        food_header.setText(header_to_display);
+
+        if(breakfast != "" && header_to_display.equalsIgnoreCase("breakfast")){
+            food_info.setText(breakfast);
+        }
+        else if(lunch != "" && header_to_display.equalsIgnoreCase("lunch")){
+            food_info.setText(lunch);
+        }
+        else if(dinner != "" && header_to_display.equalsIgnoreCase("dinner")){
+            food_info.setText(dinner);
+        }
+        else if(snack != "" && header_to_display.equalsIgnoreCase("snacks")){
+            food_info.setText(snack);
+        }
     }
     public void goToHome(View v){
         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
